@@ -1,0 +1,10 @@
+.MuiDialog-paper{
+    width: 500px;
+    /* height: 300px; */
+    border-radius: 20px !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-input {
+    padding: 8px;
+
+}

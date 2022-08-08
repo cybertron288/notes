@@ -1,10 +1,9 @@
-import  AuthState  from './auth/authState';
-import CourseState from "./course/courseState";
+
+import GlobalState from "./Global/GlobalState";
 import { combineComponents } from './combineContext.tsx';
 
 const providers = [
-    AuthState,
-    CourseState
+    GlobalState
 ]
 
 export const AppContextProvider = combineComponents(...providers);

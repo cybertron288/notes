@@ -1,9 +1,5 @@
-import GlobalContext from './GlobalContext';
-import React, { useState } from 'react'
-// import axios from "axios"
-// import { BASE_URL } from "../../constants"
-
-const GlobalState = ({children}) => {
+// models
+const Note = require("../model/note") // Mongo User Schema
 
   const notesFromApi = [
     {
@@ -50,11 +46,35 @@ const GlobalState = ({children}) => {
     },
   ]
  
-    return (
-        <GlobalContext.Provider value={{ notesFromApi }}>
-          {children}
-        </GlobalContext.Provider>
-      )
+
+const getAllNotes = async (req, res) => {
+  let allNotes
+  try {
+    // allNotes = await Note.find()
+    allNotes = notesFromApi
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ status: "error", error: "error in reading database" })
+  }
+  return res.status(200).json({ status: "ok", data: allNotes })
+}
+const getNote = async (req, res) => {
+  const { _id } = req.body
+  console.log("body", req.body)
+  // const note = await Note.findOne({ _id }).lean()
+
+  const note = notesFromApi.find(el => el.id === _id)
+
+
+
+  if (note) {
+    return res.status(200).json({ status: "ok", data: note })
+  }
+  return res.status(404).json({ status: "ok", data: "course not found" })
 }
 
-export default GlobalState;
+module.exports = {
+  getAllNotes,
+  getNote,
+}
