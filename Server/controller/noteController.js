@@ -74,7 +74,26 @@ const getNote = async (req, res) => {
   return res.status(404).json({ status: "ok", data: "course not found" })
 }
 
+const updateNote = async (req, res) => {
+  // !left with delete notes logic
+ }
+
+
+const deleteNote = (req, res) => { 
+  const { id } = req.body
+  console.log("body", req.body, )
+  // const note = await Note.findOne({ _id }).lean()
+  let usersWithoutTim = notesFromApi.filter(el => el.id !== id);
+
+  if (usersWithoutTim) {
+    return res.status(200).json({ status: "ok", data: usersWithoutTim })
+  }
+  return res.status(404).json({ status: "ok", data: "server error" })
+}
+
 module.exports = {
   getAllNotes,
   getNote,
+  deleteNote,
+  updateNote
 }

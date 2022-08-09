@@ -36,6 +36,10 @@ const Note = () => {
   }
 
   useEffect(() => {
+    console.log('notes from note', notesFromApi)
+    if (notesFromApi) {
+      setFakeNotes(notesFromApi)
+    }
     if (fakeNotes.length > 0) {
       const pinnedNotesFiltered = fakeNotes.filter(checkIfPinned)
       
@@ -45,7 +49,7 @@ const Note = () => {
     }
 
     return () => {}
-  }, [fakeNotes])
+  }, [fakeNotes, notesFromApi])
 
   const handlePinClick = (e,id) => {
     e.stopPropagation();
